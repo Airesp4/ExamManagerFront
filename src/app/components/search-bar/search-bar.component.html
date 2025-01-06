@@ -1,0 +1,10 @@
+<div class="container__searchbar">
+    <input
+      type="text"
+      [(ngModel)]="pesquisa"
+      (input)="onPesquisar()"
+      placeholder="Pesquise aqui..."
+      class="space-search"
+    />
+    <button (click)="onPesquisar()" class="button-search">Pesquisar</button>
+</div>

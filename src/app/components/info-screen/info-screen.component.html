@@ -1,0 +1,34 @@
+<div class="container__provas">
+  <div *ngIf="provasFiltradas.length === 0">
+    <p>Nenhuma prova encontrada.</p>
+  </div>
+
+  <div *ngIf="provasFiltradas.length > 0">
+    <p>Provas carregadas:</p>
+    <div class="prova-list">
+      <div
+        *ngFor="let prova of provasFiltradas"
+        class="prova-card"
+        (click)="exibirDetalhes(prova)"
+      >
+        <p>Id: {{ prova.id }}</p>
+        <h3>{{ prova.nome }}</h3>
+        <p><strong>Data de Criação:</strong> {{ prova.dataCriacao }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="provaSelecionada" class="modal" (click)="fecharModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <span class="close" (click)="fecharModal()">&times;</span>
+      <h3>Detalhes da Prova: {{ provaSelecionada.nome }}</h3>
+      <p><strong>ID:</strong> {{ provaSelecionada.id }}</p>
+      <p><strong>Data de Criação:</strong> {{ provaSelecionada.dataCriacao }}</p>
+      <!-- Você pode adicionar mais detalhes aqui -->
+    </div>
+  </div>
+</div>
+
+
+
+

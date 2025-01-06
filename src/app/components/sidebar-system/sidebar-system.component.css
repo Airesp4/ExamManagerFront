@@ -1,0 +1,42 @@
+/* Sidebar fixa */
+.container__sidebar {
+    background-color: #ADD8E6;
+    width: 250px; /* Largura fixa */
+    height: 100vh; /* Altura da tela inteira */
+    padding: 20px;
+    box-sizing: border-box;
+    position: fixed; /* Fixa a sidebar no lado esquerdo */
+    top: 0; /* Alinha ao topo */
+    left: 0; /* Fixa no lado esquerdo */
+}
+
+.container__sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.container__sidebar li {
+    padding-top: 20px;
+    font-size: 20px;
+}
+
+.container__sidebar a {
+    display: block;
+    text-decoration: none;
+    font-weight: bold;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #7EC8E3;
+    border: 1px solid transparent;  /* Borda normal */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Sombra mais forte e mais difusa */
+}
+
+.container__sidebar a:hover {
+    background-color: white; /* Fundo ao passar o mouse */
+}
+
+.container__sidebar > hr {
+    margin-top: 20px;
+}
+

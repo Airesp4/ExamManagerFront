@@ -1,0 +1,81 @@
+.container__provas {
+    padding: 20px;
+    margin: 0;
+    max-width: calc(100% - 250px); /* Subtrai a largura da sidebar */
+    margin-left: 250px;  /* Garantir que o container ocupe toda a largura da tela */
+}
+  
+.container__provas .prova-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+  
+.container__provas .prova-card {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;  /* Garantir que o card ocupe toda a largura */
+    border: 2px solid #ddd;  /* Adicionando borda visível */
+    box-sizing: border-box;  /* Inclui padding e borda no cálculo da largura */
+}
+  
+.container__provas .prova-card h3 {
+    margin: 0;
+    font-size: 1.2rem;
+}
+  
+.container__provas .prova-card p {
+    margin: 10px 0 0;
+}
+
+.prova-card {
+    cursor: pointer; /* Indica que o item é clicável */
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+.prova-card:hover {
+    transform: scale(1.04); /* Aumenta o card em 4% */
+    box-shadow: 0 4px 10px rgba(99, 85, 85, 0.2); /* Adiciona uma sombra mais forte ao passar o mouse */
+}
+
+/* Estilo para o modal */
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5); /* Fundo semi-transparente */
+    z-index: 1000;  /* Coloca o modal sobre os outros conteúdos */
+  }
+  
+  .modal-content {
+    background-color: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    width: 80%;
+    max-width: 600px;
+  }
+  
+  .close {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 30px;
+    cursor: pointer;
+  }
+  
+  .prova-card:hover {
+    transform: scale(1.05);
+    transition: transform 0.3s ease-in-out;
+  }
+  
+  
+
+  
