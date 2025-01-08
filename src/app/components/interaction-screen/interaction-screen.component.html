@@ -1,0 +1,44 @@
+<div class="interaction__container">
+  <h2>Bem-vindo ao Sistema Gerenciador de Provas</h2>
+  <p>Utilize esta área para gerenciar suas provas.</p>
+
+  <div class="info">
+    <h3>O que você pode fazer aqui?</h3>
+    <ul>
+      <li>Cadastrar novas provas</li>
+      <li>Incluir e cadastrar questões</li>
+      <li>Acompanhar resultados e estatísticas</li>
+    </ul>
+  </div>
+
+  <div class="button-group">
+    <button (click)="abrirModal()">Cadastrar Prova</button>
+    <button>Visualizar Provas</button>
+    <button>Estatísticas</button>
+  </div>
+
+  <!-- Modal de Criação -->
+  <div class="modal" *ngIf="modalAberto">
+    <div class="modal-content">
+      <h3>Cadastro de Prova</h3>
+      <label for="nomeProva">Nome da Prova:</label>
+      <input
+        id="nomeProva"
+        type="text"
+        [(ngModel)]="nomeProva"
+        placeholder="Digite o nome da prova"
+      />
+      <label for="nomeProva">Descrição:</label>
+      <input
+        id="nomeProva"
+        type="text"
+        [(ngModel)]="descricaoProva"
+        placeholder="Insira uma breve descicao"
+      />
+      <div class="modal-actions">
+        <button class="btn-save" (click)="cadastrarProva()">Salvar</button>
+        <button class="btn-cancel" (click)="fecharModal()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+</div>

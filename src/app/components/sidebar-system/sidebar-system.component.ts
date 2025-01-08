@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Output } from '@angular/core';
 
 @Component({
-  selector: 'app-sidebar-bank',
+  selector: 'app-sidebar',
   standalone: true,
   imports: [],
   providers: [HttpClient],
@@ -10,5 +10,9 @@ import { Component } from '@angular/core';
   styleUrl: './sidebar-system.component.css'
 })
 export class SidebarSystemComponent {
+  @Output() sectionChange = new EventEmitter<string>(); // Evento para notificar o pai
 
+  changeSection(section: string): void {
+    this.sectionChange.emit(section);
+  }
 }

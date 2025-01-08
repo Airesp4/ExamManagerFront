@@ -12,7 +12,8 @@
         (click)="exibirDetalhes(prova)"
       >
         <p>Id: {{ prova.id }}</p>
-        <h3>{{ prova.nome }}</h3>
+        <h3>Nome da Prova: {{ prova.nome }}</h3>
+        <p><strong>Descrição: </strong> {{ prova.descricao }}</p>
         <p><strong>Data de Criação:</strong> {{ prova.dataCriacao }}</p>
       </div>
     </div>
@@ -20,11 +21,38 @@
 
   <div *ngIf="provaSelecionada" class="modal" (click)="fecharModal()">
     <div class="modal-content" (click)="$event.stopPropagation()">
-      <span class="close" (click)="fecharModal()">&times;</span>
-      <h3>Detalhes da Prova: {{ provaSelecionada.nome }}</h3>
-      <p><strong>ID:</strong> {{ provaSelecionada.id }}</p>
-      <p><strong>Data de Criação:</strong> {{ provaSelecionada.dataCriacao }}</p>
-      <!-- Você pode adicionar mais detalhes aqui -->
+      <h3>Detalhes da Prova:</h3>
+  
+      <div>
+        <label><strong>ID: </strong></label>
+        <span *ngIf="!editando">{{ provaSelecionada.id }}</span>
+        <input *ngIf="editando" type="text" [(ngModel)]="provaSelecionada.id" disabled />
+      </div>
+  
+      <div>
+        <label><strong>Nome: </strong></label>
+        <span *ngIf="!editando">{{ provaSelecionada.nome }}</span>
+        <input *ngIf="editando" type="text" [(ngModel)]="provaSelecionada.nome" />
+      </div>
+      
+      <div>
+        <label><strong>Descrição: </strong></label>
+        <span *ngIf="!editando">{{ provaSelecionada.descricao }}</span>
+        <input *ngIf="editando" type="text" [(ngModel)]="provaSelecionada.descricao" />
+      </div>
+      
+      <div>
+        <label><strong>Data de Criação: </strong></label>
+        <span>{{ provaSelecionada.dataCriacao }}</span>
+      </div>
+  
+      <div class="button-container">
+        <button (click)="salvarAlteracoes()">Salvar</button>
+        <button (click)="editando ? desativarEdicao() : ativarEdicao()">
+          {{ editando ? 'Cancelar' : 'Editar' }}
+        </button>
+        <button (click)="fecharModal()">Fechar</button>
+      </div>
     </div>
   </div>
 </div>
