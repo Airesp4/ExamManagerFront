@@ -11,23 +11,17 @@
         class="prova-card"
         (click)="exibirDetalhes(prova)"
       >
-        <p>Id: {{ prova.id }}</p>
-        <h3>Nome da Prova: {{ prova.nome }}</h3>
+        <h3>{{ prova.nome }}</h3>
         <p><strong>Descrição: </strong> {{ prova.descricao }}</p>
         <p><strong>Data de Criação:</strong> {{ prova.dataCriacao }}</p>
       </div>
     </div>
   </div>
 
+  <!-- Modal de Detalhes -->
   <div *ngIf="provaSelecionada" class="modal" (click)="fecharModal()">
     <div class="modal-content" (click)="$event.stopPropagation()">
       <h3>Detalhes da Prova:</h3>
-  
-      <div>
-        <label><strong>ID: </strong></label>
-        <span *ngIf="!editando">{{ provaSelecionada.id }}</span>
-        <input *ngIf="editando" type="text" [(ngModel)]="provaSelecionada.id" disabled />
-      </div>
   
       <div>
         <label><strong>Nome: </strong></label>
@@ -47,16 +41,24 @@
       </div>
   
       <div class="button-container">
-        <button (click)="salvarAlteracoes()">Salvar</button>
-        <button (click)="editando ? desativarEdicao() : ativarEdicao()">
+        <button class="btn-salvar" (click)="salvarAlteracoes()">Salvar</button>
+        <button class="btn-editar" (click)="editando ? desativarEdicao() : ativarEdicao()">
           {{ editando ? 'Cancelar' : 'Editar' }}
         </button>
-        <button (click)="fecharModal()">Fechar</button>
+        <button class="btn-fechar" (click)="fecharModal()">Fechar</button>
+        <button class="btn-excluir" (click)="confirmarExclusao = true">Excluir</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Confirmação de Exclusão -->
+  <div *ngIf="confirmarExclusao" class="modal" (click)="confirmarExclusao = false">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h3>Tem certeza que deseja fazer a exclusão?</h3>
+      <div class="button-container">
+        <button class="btn-confirmar" (click)="efetuarExclusao()">Sim</button>
+        <button class="btn-cancelar" (click)="confirmarExclusao = false">Não</button>
       </div>
     </div>
   </div>
 </div>
-
-
-
-

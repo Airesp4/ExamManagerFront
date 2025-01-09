@@ -1,115 +1,124 @@
 .container__provas {
-    padding: 20px;
-    margin: 0;
-    max-width: calc(100% - 250px); /* Subtrai a largura da sidebar */
-    margin-left: 250px;  /* Garantir que o container ocupe toda a largura da tela */
+  padding: 20px;
+  margin: 0;
+  max-width: calc(100% - 250px); /* Subtrai a largura da sidebar */
+  margin-left: 250px;
 }
-  
+
 .container__provas .prova-list {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
-  
+
 .container__provas .prova-card {
-    background-color: #f9f9f9;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    width: 100%;  /* Garantir que o card ocupe toda a largura */
-    border: 2px solid #ddd;  /* Adicionando borda visível */
-    box-sizing: border-box;  /* Inclui padding e borda no cálculo da largura */
-}
-  
-.container__provas .prova-card h3 {
-    margin: 0;
-    font-size: 1.2rem;
-}
-  
-.container__provas .prova-card p {
-    margin: 10px 0 0;
+  background-color: #f9f9f9;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  border: 2px solid #ddd;
+  box-sizing: border-box;
+  cursor: pointer;
+  transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
 }
 
-.prova-card {
-    cursor: pointer; /* Indica que o item é clicável */
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+.container__provas .prova-card:hover {
+  transform: scale(1.04);
+  box-shadow: 0 4px 10px rgba(99, 85, 85, 0.2);
 }
 
-.prova-card:hover {
-    transform: scale(1.04); /* Aumenta o card em 4% */
-    box-shadow: 0 4px 10px rgba(99, 85, 85, 0.2); /* Adiciona uma sombra mais forte ao passar o mouse */
-}
-
-/* Modal Overlay */
 .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .modal-content {
-    background-color: #fff;
-    padding: 20px;
-    border-radius: 8px;
-    width: 400px;
-    text-align: center;
-    position: relative;
-  }
-  
-  h3 {
-    margin-top: 0;
-  }
-  
-  p {
-    margin: 10px 0;
-  }
-  
-  .button-container {
-    display: flex;
-    justify-content: center; /* Centraliza horizontalmente */
-    gap: 10px; /* Espaçamento entre os botões */
-    margin-top: 20px;
-  }
-  
-  button {
-    padding: 10px 15px;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    font-size: 14px;
-    cursor: pointer;
-  }
-  
-  /* Botão Salvar - Azul */
-  button:nth-child(1) {
-    background-color: #007bff;
-  }
-  
-  button:nth-child(1):hover {
-    background-color: #0056b3;
-  }
-  
-  /* Botão Editar/Cancelar - Amarelo */
-  button:nth-child(2) {
-    background-color: #ffc107;
-    color: black; /* Texto preto para contraste */
-  }
-  
-  button:nth-child(2):hover {
-    background-color: #e0a800;
-  }
-  
-  /* Botão Fechar - Vermelho */
-  button:nth-child(3) {
-    background-color: #dc3545;
-  }
-  
-  button:nth-child(3):hover {
-    background-color: #a71d2a;
-  }
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  width: 400px;
+  text-align: center;
+  position: relative;
+}
+
+h3 {
+  margin-top: 0;
+}
+
+p {
+  margin: 10px 0;
+}
+
+.button-container {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+/* Botões com Classes Específicas */
+button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.btn-salvar {
+  background-color: #007bff;
+}
+
+.btn-salvar:hover {
+  background-color: #0056b3;
+}
+
+.btn-editar {
+  background-color: #ffc107;
+  color: black;
+}
+
+.btn-editar:hover {
+  background-color: #e0a800;
+}
+
+.btn-fechar {
+  background-color: #6c757d;
+}
+
+.btn-fechar:hover {
+  background-color: #5a6268;
+}
+
+.btn-excluir {
+  background-color: #dc3545;
+}
+
+.btn-excluir:hover {
+  background-color: #a71d2a;
+}
+
+.btn-confirmar {
+  background-color: #28a745;
+}
+
+.btn-confirmar:hover {
+  background-color: #218838;
+}
+
+.btn-cancelar {
+  background-color: #6c757d;
+}
+
+.btn-cancelar:hover {
+  background-color: #5a6268;
+}

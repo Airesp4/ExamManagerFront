@@ -7,11 +7,12 @@ import { InfoScreenComponent } from "./components/info-screen/info-screen.compon
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { InteractionScreenComponent } from "./components/interaction-screen/interaction-screen.component";
+import { LoginComponent } from "./components/login/login.component";
 
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet, SidebarSystemComponent, SearchBarComponent, FormsModule, InfoScreenComponent, CommonModule, InteractionScreenComponent],
+  imports: [RouterOutlet, SidebarSystemComponent, SearchBarComponent, FormsModule, InfoScreenComponent, CommonModule, InteractionScreenComponent, LoginComponent],
   providers: [HttpClient],
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']

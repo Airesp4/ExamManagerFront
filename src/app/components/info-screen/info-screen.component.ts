@@ -20,6 +20,7 @@ export class InfoScreenComponent implements OnInit {
   provasFiltradas: Prova[] = [];
   provaSelecionada: Prova | null = null;
   editando: boolean = false;
+  confirmarExclusao: boolean = false;
 
   constructor(
     private dataService: DataService,
@@ -29,7 +30,6 @@ export class InfoScreenComponent implements OnInit {
   ngOnInit(): void {
     this.carregarProvas();
 
-    // Inscrevendo-se para ouvir mudanças no texto da pesquisa
     this.searchService.pesquisa$.subscribe((texto) => {
       this.filtrarProvas(texto);
     });
@@ -39,7 +39,7 @@ export class InfoScreenComponent implements OnInit {
     this.dataService.getProvas().subscribe({
       next: (dados) => {
         this.provas = dados;
-        this.provasFiltradas = dados; // Exibe todas as provas inicialmente
+        this.provasFiltradas = dados;
       },
       error: (erro) => {
         console.error('Erro ao buscar provas:', erro);
@@ -55,22 +55,22 @@ export class InfoScreenComponent implements OnInit {
   }
 
   exibirDetalhes(prova: Prova): void {
-    this.provaSelecionada = prova;  // Armazena os dados da prova clicada
+    this.provaSelecionada = prova;
   }
 
   salvarAlteracoes(): void {
-    console.log("Método salvarAlteracoes chamado"); // Verificação
+    console.log("Método salvarAlteracoes chamado");
     if (this.provaSelecionada != null) {
-      const id = this.provaSelecionada.id; // O id da prova que você deseja atualizar
+      const id = this.provaSelecionada.id;
       this.dataService.atualizarProva(id, this.provaSelecionada).subscribe({
         next: (updatedProva) => {
           console.log('Prova atualizada com sucesso:', updatedProva);
           this.fecharModal();
-          // Realize qualquer outra ação após a atualização, como mostrar uma mensagem de sucesso
+          
         },
         error: (err) => {
           console.error('Erro ao atualizar a prova:', err);
-          // Trate erros, como mostrar uma mensagem de erro para o usuário
+         
         }
       });
     } else {
@@ -78,24 +78,40 @@ export class InfoScreenComponent implements OnInit {
     }
   }
   
-  
-  
   ativarEdicao(): void {
     if (this.provaSelecionada != null) {
       this.editando = true;
-      alert('Modo de edição ativado para: ' + this.provaSelecionada.nome);
     }
   }
   
   desativarEdicao(): void {
     this.editando = false;
-    alert('Modo de edição desativado.');
   }
   
   fecharModal(): void {
     this.provaSelecionada = null;
     this.editando = false;
   }
-  
-}
 
+  efetuarExclusao(): void {
+    if (!this.provaSelecionada || !this.provaSelecionada.id) {
+      console.error('Nenhuma prova selecionada para exclusão.');
+      return;
+    }
+  
+    const id = this.provaSelecionada.id;
+  
+    this.dataService.excluirProva(id).subscribe({
+      next: () => {
+        console.log('Prova excluída com sucesso:');
+        this.provaSelecionada = null;
+        this.confirmarExclusao = false;
+        this.fecharModal();
+        this.carregarProvas();
+      },
+      error: (err) => {
+        console.error('Erro ao excluir a prova:', err);
+      }
+    });
+  }
+}
