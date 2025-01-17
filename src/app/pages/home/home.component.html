@@ -1,0 +1,19 @@
+<div class="container">
+    <app-sidebar (sectionChange)="onSectionChange($event)"></app-sidebar>
+  
+    <div class="container__content">
+      <ng-container *ngIf="activeSection === 'inicio'">
+        <app-interaction-screen (sectionChange)="onSectionChange($event)"></app-interaction-screen>
+      </ng-container>
+  
+      <ng-container *ngIf="activeSection === 'provas'">
+        <!-- Conteúdo da seção Provas -->
+        <app-search-bar></app-search-bar>
+        <app-info-screen></app-info-screen>
+      </ng-container>
+  
+      <ng-container *ngIf="activeSection === 'perfil'">
+
+      </ng-container>
+    </div>
+</div>

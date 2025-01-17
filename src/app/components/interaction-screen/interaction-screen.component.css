@@ -150,4 +150,34 @@
     background-color: #c0392b;
     transform: scale(1.05);
   }
+
+  .statistics-list {
+    list-style: none; /* Remove as bolinhas dos itens da lista */
+    padding: 0; /* Remove o padding padrão da lista */
+    margin: 0; /* Remove a margem padrão da lista */
+  }
   
+  .statistics-list li {
+    text-align: left; /* Alinha o texto à esquerda */
+    margin: 5px 0; /* Espaçamento entre os itens */
+  }
+  
+  .modal-actions {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center; /* Centraliza o botão "Fechar" */
+  }
+  
+  .btn-close {
+    background-color: #d32f2f;
+    color: #fff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .btn-close:hover {
+    background-color: #b71c1c;
+  }

@@ -1,4 +1,10 @@
-/* Contêiner principal */
+:host {
+  display: block;
+  background-color: #b1c2c7; /* Cor de fundo suave */
+  min-height: 100vh; /* Preenche toda a altura da página */
+  padding: 20px; /* Adiciona algum preenchimento ao redor */
+}
+
 .login-container {
   margin: 40px auto;
   width: 100%;
@@ -6,10 +12,13 @@
   background: #ffffff;
   padding: 20px 30px;
   border-radius: 12px;
-  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
   font-family: 'Arial', sans-serif;
+  border-radius: 8px;
+  border: 1px solid #ada0a0;
 }
 
+/* Mantém o estilo do restante do contêiner de login */
 h2 {
   text-align: center;
   color: #01579b;
@@ -17,7 +26,6 @@ h2 {
   margin-bottom: 20px;
 }
 
-/* Formulários */
 .form-group {
   margin-bottom: 15px;
 }
@@ -59,6 +67,7 @@ button {
 button:disabled {
   background-color: #b3e5fc;
   cursor: not-allowed;
+  color: black;
 }
 
 .btn-primary {
@@ -90,7 +99,6 @@ button:disabled {
   border-radius: 8px;
 }
 
-/* Modal */
 .modal {
   display: none;
   position: fixed;
@@ -148,4 +156,8 @@ button:disabled {
 
 .btn-danger:hover {
   background-color: #ef5350;
+}
+
+.login-container .form-group button:first-child {
+  margin-bottom: 10px;
 }

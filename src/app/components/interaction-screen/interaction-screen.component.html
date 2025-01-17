@@ -13,8 +13,8 @@
 
   <div class="button-group">
     <button (click)="abrirModal()">Cadastrar Prova</button>
-    <button>Visualizar Provas</button>
-    <button>Estatísticas</button>
+    <button (click)="emitirSectionChange('provas')">Visualizar Provas</button>
+    <button (click)="abrirModalEstatisticas()">Estatísticas</button>
   </div>
 
   <!-- Modal de Criação -->
@@ -38,6 +38,21 @@
       <div class="modal-actions">
         <button class="btn-save" (click)="cadastrarProva()">Salvar</button>
         <button class="btn-cancel" (click)="fecharModal()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modal de Estatísticas -->
+  <div class="modal" *ngIf="modalEstatisticasAberto">
+    <div class="modal-content">
+      <h3>Estatísticas do Sistema</h3>
+      <p>Estatísticas gerais do gerenciador fornecidas:</p>
+      <ul class="statistics-list">
+        <li>Total de provas cadastradas: {{ estatisticas.totalProvas }}</li>
+        <li>Total de questões criadas: {{ estatisticas.totalQuestoes }}</li>
+      </ul>
+      <div class="modal-actions">
+        <button class="btn-close" (click)="fecharModalEstatisticas()">Fechar</button>
       </div>
     </div>
   </div>

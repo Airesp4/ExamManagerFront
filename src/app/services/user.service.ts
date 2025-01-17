@@ -1,17 +1,53 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { format } from 'date-fns';
+import { catchError, map, Observable, tap, throwError } from 'rxjs';
+
+export interface User {
+  id: number | null;
+  username: string;
+  password: string;
+  dataNascimento: string;
+  role: string | null;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:8080/user';
+  private apiUrl = 'http://localhost:8080';
   
   constructor(private http: HttpClient) {}
 
-  login(username: string, password: string): Observable<any> {
-    const loginData = { username, password };
-    return this.http.post(`${this.apiUrl}/login`, loginData);
+  login(username: string, password: string): Observable<{ token: string }> {
+    const data = {
+      login: username,
+      password: password,
+    };
+  
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+  
+    return this.http.post<{ token: string }>(`${this.apiUrl}/auth/login`, data, { headers });
   }
+  
+
+  cadastrarUsuario(username: string, password: string, dataNascimento: string): Observable<any> {
+
+    const dataFormatada = format(new Date(dataNascimento), 'yyyy-MM-dd');
+  
+    const data = {
+      login: username,
+      password: password,
+      dateBirth: dataFormatada,
+      role: 'USER',
+    };
+  
+    const headers = new HttpHeaders({
+      'Content-Type': 'application/json',
+    });
+  
+    return this.http.post(`${this.apiUrl}/auth/register`, data, { headers });
+  }  
 }
