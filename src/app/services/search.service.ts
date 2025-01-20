@@ -5,10 +5,10 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class SearchService {
-  private pesquisaSubject = new BehaviorSubject<string>(''); // Texto inicial vazio
-  pesquisa$ = this.pesquisaSubject.asObservable(); // Observable para os componentes se inscreverem
+  private pesquisaSubject = new BehaviorSubject<string>('');
+  pesquisa$ = this.pesquisaSubject.asObservable();
 
   atualizarPesquisa(texto: string): void {
-    this.pesquisaSubject.next(texto); // Atualiza o valor da pesquisa
+    this.pesquisaSubject.next(texto);
   }
 }

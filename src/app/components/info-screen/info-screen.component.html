@@ -14,11 +14,11 @@
         <h3>{{ prova.nome }}</h3>
         <p><strong>Descrição: </strong> {{ prova.descricao }}</p>
         <p><strong>Data de Criação:</strong> {{ prova.dataCriacao }}</p>
+        <p><strong>Nº de Questões</strong> {{ prova.numQuestao }}</p>
       </div>
     </div>
   </div>
 
-  <!-- Modal de Detalhes -->
   <div *ngIf="provaSelecionada" class="modal" (click)="fecharModal()">
     <div class="modal-content" (click)="$event.stopPropagation()">
       <h3>Detalhes da Prova:</h3>
@@ -28,31 +28,96 @@
         <span *ngIf="!editando">{{ provaSelecionada.nome }}</span>
         <input *ngIf="editando" type="text" [(ngModel)]="provaSelecionada.nome" />
       </div>
-      
+  
       <div>
         <label><strong>Descrição: </strong></label>
         <span *ngIf="!editando">{{ provaSelecionada.descricao }}</span>
         <input *ngIf="editando" type="text" [(ngModel)]="provaSelecionada.descricao" />
       </div>
-      
+  
       <div>
         <label><strong>Data de Criação: </strong></label>
         <span>{{ provaSelecionada.dataCriacao }}</span>
       </div>
+  
+      <div>
+        <label><strong>Número de Questões: </strong></label>
+        <span>{{ provaSelecionada.numQuestao }}</span>
+      </div>
+      
+      <div *ngIf="provaSelecionada.questoes" class="questoes-container">
+        <div *ngIf="provaSelecionada.questoes.length > 0">
+          <h4>Questões:</h4>
+          <div
+            *ngFor="let questao of provaSelecionada.questoes"
+            class="questao-card"
+            (click)="abrirMenuQuestao(questao)"
+          >
+            <p>{{ questao.enunciado }}</p>
+          </div>
+        </div>
+        <div *ngIf="provaSelecionada.questoes?.length === 0">
+          <p>Esta prova ainda não possui questões.</p>
+        </div>
+      </div>
+
+      <div *ngIf="questaoSelecionada" class="modal" (click)="fecharMenuQuestao()">
+        <div class="modal-content" (click)="$event.stopPropagation()">
+          <h3>Editar ou Excluir Questão</h3>
+
+          <div>
+            <label for="enunciadoQuestao"><strong>Enunciado:</strong></label>
+            <textarea
+              id="enunciadoQuestao"
+              [(ngModel)]="questaoSelecionada.enunciado"
+              placeholder="Atualize o enunciado"
+              rows="4"
+              class="form-control"
+            ></textarea>
+          </div>
+
+          <div class="modal-actions">
+            <button class="btn-confirmar" (click)="atualizarQuestao()">Salvar Alterações</button>
+            <button class="btn-excluir" (click)="excluirQuestao()">Excluir Questão</button>
+            <button class="btn-cancelar" (click)="fecharMenuQuestao()">Cancelar</button>
+          </div>
+        </div>
+      </div>
+
+      <button class="btn-inserir-questao" (click)="inserirNovaQuestao()">Inserir Nova Questão</button>
   
       <div class="button-container">
         <button class="btn-salvar" (click)="salvarAlteracoes()">Salvar</button>
         <button class="btn-editar" (click)="editando ? desativarEdicao() : ativarEdicao()">
           {{ editando ? 'Cancelar' : 'Editar' }}
         </button>
-        <button class="btn-fechar" (click)="fecharModal()">Fechar</button>
         <button class="btn-excluir" (click)="confirmarExclusao = true">Excluir</button>
+        <button class="btn-fechar" (click)="fecharModal()">Fechar</button>
       </div>
     </div>
   </div>
 
-  <!-- Modal de Confirmação de Exclusão -->
-  <div *ngIf="confirmarExclusao" class="modal" (click)="confirmarExclusao = false">
+  <div *ngIf="modalInserirQuestoesAberto" class="modal" (click)="fecharModalInserirQuestao()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+      <h3>Inserir Questão:</h3>
+  
+      <label for="enunciadoQuestao">Enunciado da Questão:</label>
+      <textarea
+        id="enunciadoQuestao"
+        [(ngModel)]="enunciado"
+        placeholder="Insira o enunciado da questão"
+        rows="4"
+        class="form-control"
+      ></textarea>
+  
+      <div class="modal-actions">
+        <button class="btn-confirmar" (click)="salvarQuestao()">Salvar Questão</button>
+        <button class="btn-cancelar" (click)="fecharModalInserirQuestao()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+  
+	<div *ngIf="confirmarExclusao" class="modal" (click)="confirmarExclusao = false">
     <div class="modal-content" (click)="$event.stopPropagation()">
       <h3>Tem certeza que deseja fazer a exclusão?</h3>
       <div class="button-container">

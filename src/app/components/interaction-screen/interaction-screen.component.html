@@ -14,6 +14,7 @@
   <div class="button-group">
     <button (click)="abrirModal()">Cadastrar Prova</button>
     <button (click)="emitirSectionChange('provas')">Visualizar Provas</button>
+    <button (click)="abrirModalQuestoes()">Cadastrar Questões</button>
     <button (click)="abrirModalEstatisticas()">Estatísticas</button>
   </div>
 
@@ -56,4 +57,40 @@
       </div>
     </div>
   </div>
+
+  <!-- Modal de Questões -->
+  <div class="modal" *ngIf="modalQuestoesAberto">
+    <div class="modal-content">
+      <h3>Cadastro de Questões</h3>
+
+      <!-- Seleção de Prova -->
+      <label for="provaSelecionada">Selecione a Prova:</label>
+      <select
+        id="provaSelecionada"
+        [(ngModel)]="provaSelecionada"
+        class="form-control"
+      >
+        <option *ngFor="let prova of listaProvas" [value]="prova.id">
+          {{ prova.nome }}
+        </option>
+      </select>
+
+      <!-- Enunciado da Questão -->
+      <label for="enunciadoQuestao">Enunciado da Questão:</label>
+      <textarea
+        id="enunciadoQuestao"
+        [(ngModel)]="enunciadoQuestao"
+        placeholder="Insira o enunciado da questão"
+        rows="4"
+        class="form-control"
+      ></textarea>
+
+      <!-- Ações do Modal -->
+      <div class="modal-actions">
+        <button class="btn-save" (click)="adicionarQuestao()">Salvar Questão</button>
+        <button class="btn-cancel" (click)="fecharModalQuestoes()">Cancelar</button>
+      </div>
+    </div>
+  </div>
+
 </div>

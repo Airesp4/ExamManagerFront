@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { DataService } from '../../services/data.service';
+import { DataService, Questao } from '../../services/data.service';
 import { Prova } from '../../services/data.service';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
@@ -19,8 +19,11 @@ export class InfoScreenComponent implements OnInit {
   provas: Prova[] = [];
   provasFiltradas: Prova[] = [];
   provaSelecionada: Prova | null = null;
+  questaoSelecionada: Questao | null = null;
   editando: boolean = false;
   confirmarExclusao: boolean = false;
+  modalInserirQuestoesAberto: boolean = false;
+  enunciado: string = '';
 
   constructor(
     private dataService: DataService,
@@ -40,6 +43,12 @@ export class InfoScreenComponent implements OnInit {
       next: (dados) => {
         this.provas = dados;
         this.provasFiltradas = dados;
+  
+        this.provas.forEach(prova => {
+          if (prova.questoes != null) {
+            prova.numQuestao = prova.questoes.length;
+          }
+        });
       },
       error: (erro) => {
         console.error('Erro ao buscar provas:', erro);
@@ -58,6 +67,50 @@ export class InfoScreenComponent implements OnInit {
     this.provaSelecionada = prova;
   }
 
+  abrirMenuQuestao(questao: Questao): void {
+    this.questaoSelecionada = questao;
+  }
+
+  fecharMenuQuestao(): void {
+    this.questaoSelecionada = null;
+  }
+
+  atualizarQuestao(): void {
+    if (this.questaoSelecionada?.enunciado) {
+      this.dataService
+        .atualizarQuestao(this.questaoSelecionada.id, this.questaoSelecionada.enunciado)
+        .subscribe(() => {
+          this.fecharMenuQuestao();
+  
+          // Atualiza localmente o enunciado da questão, se possível
+          const questaoAtualizada = this.provaSelecionada?.questoes?.find(
+            (q) => q.id === this.questaoSelecionada?.id
+          );
+          if (questaoAtualizada) {
+            questaoAtualizada.enunciado = this.questaoSelecionada!.enunciado;
+          }
+  
+          // Recarrega as provas para refletir mudanças
+          this.carregarProvas();
+        });
+    }
+  }
+
+  excluirQuestao(): void {
+    if (this.questaoSelecionada) {
+      this.dataService.excluirQuestao(this.questaoSelecionada.id).subscribe(() => {
+        if (this.provaSelecionada?.questoes) {
+
+          this.provaSelecionada.questoes = this.provaSelecionada.questoes.filter(
+            (q) => q.id !== this.questaoSelecionada!.id
+          );
+          this.fecharMenuQuestao();
+        }
+        this.carregarProvas();
+      });
+    }
+  }
+
   salvarAlteracoes(): void {
     console.log("Método salvarAlteracoes chamado");
     if (this.provaSelecionada != null) {
@@ -66,28 +119,26 @@ export class InfoScreenComponent implements OnInit {
         next: (updatedProva) => {
           console.log('Prova atualizada com sucesso:', updatedProva);
           this.fecharModal();
-          
         },
         error: (err) => {
           console.error('Erro ao atualizar a prova:', err);
-         
         }
       });
     } else {
       console.error('Nenhuma prova selecionada para atualizar');
     }
   }
-  
+
   ativarEdicao(): void {
     if (this.provaSelecionada != null) {
       this.editando = true;
     }
   }
-  
+
   desativarEdicao(): void {
     this.editando = false;
   }
-  
+
   fecharModal(): void {
     this.provaSelecionada = null;
     this.editando = false;
@@ -98,9 +149,9 @@ export class InfoScreenComponent implements OnInit {
       console.error('Nenhuma prova selecionada para exclusão.');
       return;
     }
-  
+
     const id = this.provaSelecionada.id;
-  
+
     this.dataService.excluirProva(id).subscribe({
       next: () => {
         console.log('Prova excluída com sucesso:');
@@ -113,5 +164,35 @@ export class InfoScreenComponent implements OnInit {
         console.error('Erro ao excluir a prova:', err);
       }
     });
+  }
+
+  inserirNovaQuestao(): void {
+    this.modalInserirQuestoesAberto = true;
+  }
+
+  salvarQuestao(): void {
+    if (this.provaSelecionada?.id && this.enunciado) {
+      this.dataService.cadastrarQuestao(this.enunciado, this.provaSelecionada.id).subscribe({
+        next: (novaQuestao) => {
+
+          this.modalInserirQuestoesAberto = false;
+  
+          if (this.provaSelecionada?.questoes) {
+            this.provaSelecionada.questoes.push(novaQuestao);
+          } else {
+            this.provaSelecionada!.questoes = [novaQuestao];
+          }
+        },
+        error: (err) => {
+          console.error('Erro ao adicionar a questão:', err);
+        },
+      });
+    } else {
+      console.error('Enunciado da questão ou prova não selecionada');
+    }
+  }
+
+  fecharModalInserirQuestao(): void {
+    this.modalInserirQuestoesAberto = false;
   }
 }

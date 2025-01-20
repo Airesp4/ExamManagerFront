@@ -15,7 +15,7 @@ export interface User {
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:8080';
+  private apiUrl = 'http://localhost:8080/auth';
   
   constructor(private http: HttpClient) {}
 
@@ -29,7 +29,7 @@ export class UserService {
       'Content-Type': 'application/json',
     });
   
-    return this.http.post<{ token: string }>(`${this.apiUrl}/auth/login`, data, { headers });
+    return this.http.post<{ token: string }>(`${this.apiUrl}/login`, data, { headers });
   }
   
 
@@ -48,6 +48,6 @@ export class UserService {
       'Content-Type': 'application/json',
     });
   
-    return this.http.post(`${this.apiUrl}/auth/register`, data, { headers });
+    return this.http.post(`${this.apiUrl}/register`, data, { headers });
   }  
 }
