@@ -56,15 +56,12 @@
             <p>{{ questao.enunciado }}</p>
           </div>
         </div>
-        <div *ngIf="provaSelecionada.questoes?.length === 0">
-          <p>Esta prova ainda não possui questões.</p>
-        </div>
       </div>
 
       <div *ngIf="questaoSelecionada" class="modal" (click)="fecharMenuQuestao()">
         <div class="modal-content" (click)="$event.stopPropagation()">
-          <h3>Editar ou Excluir Questão</h3>
-
+          <h3>Editar Questão e Respostas</h3>
+      
           <div>
             <label for="enunciadoQuestao"><strong>Enunciado:</strong></label>
             <textarea
@@ -74,6 +71,20 @@
               rows="4"
               class="form-control"
             ></textarea>
+          </div>
+      
+          <div>
+
+            <div *ngFor="let resposta of questaoSelecionada.respostas; let i = index" class="resposta-item">
+              <label for="resposta-{{ i }}">Alternativa {{ getLetraAlternativa(i)}}:</label>
+              <input
+                id="resposta-{{ i }}"
+                type="text"
+                [(ngModel)]="resposta.descricao"
+                placeholder="Atualize a resposta"
+                class="form-control"
+              />
+            </div>
           </div>
 
           <div class="modal-actions">
@@ -109,6 +120,51 @@
         rows="4"
         class="form-control"
       ></textarea>
+  
+      <label for="alternativaA">Alternativa A:</label>
+      <input
+        id="alternativaA"
+        type="text"
+        [(ngModel)]="alternativas[0]"
+        placeholder="Insira a alternativa A"
+        class="form-control"
+      />
+  
+      <label for="alternativaB">Alternativa B:</label>
+      <input
+        id="alternativaB"
+        type="text"
+        [(ngModel)]="alternativas[1]"
+        placeholder="Insira a alternativa B"
+        class="form-control"
+      />
+  
+      <label for="alternativaC">Alternativa C:</label>
+      <input
+        id="alternativaC"
+        type="text"
+        [(ngModel)]="alternativas[2]"
+        placeholder="Insira a alternativa C"
+        class="form-control"
+      />
+  
+      <label for="alternativaD">Alternativa D:</label>
+      <input
+        id="alternativaD"
+        type="text"
+        [(ngModel)]="alternativas[3]"
+        placeholder="Insira a alternativa D"
+        class="form-control"
+      />
+
+      <label for="alternativaD">Alternativa E:</label>
+      <input
+        id="alternativaE"
+        type="text"
+        [(ngModel)]="alternativas[4]"
+        placeholder="Insira a alternativa E"
+        class="form-control"
+      />
   
       <div class="modal-actions">
         <button class="btn-confirmar" (click)="salvarQuestao()">Salvar Questão</button>

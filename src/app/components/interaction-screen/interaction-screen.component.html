@@ -18,7 +18,6 @@
     <button (click)="abrirModalEstatisticas()">Estatísticas</button>
   </div>
 
-  <!-- Modal de Criação -->
   <div class="modal" *ngIf="modalAberto">
     <div class="modal-content">
       <h3>Cadastro de Prova</h3>
@@ -43,13 +42,13 @@
     </div>
   </div>
 
-  <!-- Modal de Estatísticas -->
   <div class="modal" *ngIf="modalEstatisticasAberto">
     <div class="modal-content">
       <h3>Estatísticas do Sistema</h3>
       <p>Estatísticas gerais do gerenciador fornecidas:</p>
       <ul class="statistics-list">
-        <li>Total de provas cadastradas: {{ estatisticas.totalProvas }}</li>
+        <li>Total de usuários cadastrados: {{ estatisticas.totalUsuarios }}</li>
+        <li>Total de provas criadas: {{ estatisticas.totalProvas }}</li>
         <li>Total de questões criadas: {{ estatisticas.totalQuestoes }}</li>
       </ul>
       <div class="modal-actions">
@@ -58,12 +57,10 @@
     </div>
   </div>
 
-  <!-- Modal de Questões -->
   <div class="modal" *ngIf="modalQuestoesAberto">
     <div class="modal-content">
       <h3>Cadastro de Questões</h3>
 
-      <!-- Seleção de Prova -->
       <label for="provaSelecionada">Selecione a Prova:</label>
       <select
         id="provaSelecionada"
@@ -75,7 +72,6 @@
         </option>
       </select>
 
-      <!-- Enunciado da Questão -->
       <label for="enunciadoQuestao">Enunciado da Questão:</label>
       <textarea
         id="enunciadoQuestao"
@@ -85,7 +81,6 @@
         class="form-control"
       ></textarea>
 
-      <!-- Ações do Modal -->
       <div class="modal-actions">
         <button class="btn-save" (click)="adicionarQuestao()">Salvar Questão</button>
         <button class="btn-cancel" (click)="fecharModalQuestoes()">Cancelar</button>

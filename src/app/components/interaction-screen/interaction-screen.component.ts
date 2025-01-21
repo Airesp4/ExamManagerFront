@@ -18,9 +18,10 @@ export class InteractionScreenComponent {
   modalAberto: boolean = false;
   modalEstatisticasAberto: boolean = false;
   modalQuestoesAberto: boolean = false;
-  estatisticas: { totalProvas: number; totalQuestoes: number } = {
+  estatisticas: { totalProvas: number; totalQuestoes: number; totalUsuarios: number;} = {
     totalProvas: 0,
     totalQuestoes: 0,
+    totalUsuarios: 0,
   };
 
   listaProvas: { id: number; nome: string }[] = [];
@@ -85,8 +86,13 @@ export class InteractionScreenComponent {
       this.estatisticas.totalProvas = provas.length;
     });
     this.dataService.getQuestoes().subscribe((questoes) => {
-      this.estatisticas.totalQuestoes = questoes.length;
+      this.estatisticas.totalQuestoes = questoes.length | 0;
     });
+    this.dataService.buscarUsuarios().subscribe({
+      next: (quantidade) => {
+        this.estatisticas.totalUsuarios = quantidade;
+      }
+    })
   }
 
   carregarProvas(): void {
