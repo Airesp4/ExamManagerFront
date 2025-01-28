@@ -19,7 +19,7 @@
     </div>
   </div>
 
-  <div *ngIf="provaSelecionada" class="modal" (click)="fecharModal()">
+  <div *ngIf="provaSelecionada" class="modal" (click)="fechar('modal')">
     <div class="modal-content" (click)="$event.stopPropagation()">
       <h3>Detalhes da Prova:</h3>
   
@@ -88,7 +88,7 @@
           </div>
 
           <div class="modal-actions">
-            <button class="btn-confirmar" (click)="atualizarQuestao()">Salvar Alterações</button>
+            <button class="btn-confirmar" (click)="salvarMudancas()">Salvar Alterações</button>
             <button class="btn-excluir" (click)="excluirQuestao()">Excluir Questão</button>
             <button class="btn-cancelar" (click)="fecharMenuQuestao()">Cancelar</button>
           </div>
@@ -103,12 +103,12 @@
           {{ editando ? 'Cancelar' : 'Editar' }}
         </button>
         <button class="btn-excluir" (click)="confirmarExclusao = true">Excluir</button>
-        <button class="btn-fechar" (click)="fecharModal()">Fechar</button>
+        <button class="btn-fechar" (click)="fechar('modal')">Fechar</button>
       </div>
     </div>
   </div>
 
-  <div *ngIf="modalInserirQuestoesAberto" class="modal" (click)="fecharModalInserirQuestao()">
+  <div *ngIf="modalInserirQuestoesAberto" class="modal" (click)="fechar('modalInserirQuestao')">
     <div class="modal-content" (click)="$event.stopPropagation()">
       <h3>Inserir Questão:</h3>
   
@@ -168,7 +168,7 @@
   
       <div class="modal-actions">
         <button class="btn-confirmar" (click)="salvarQuestao()">Salvar Questão</button>
-        <button class="btn-cancelar" (click)="fecharModalInserirQuestao()">Cancelar</button>
+        <button class="btn-cancelar" (click)="fechar('modalInserirQuestao')">Cancelar</button>
       </div>
     </div>
   </div>

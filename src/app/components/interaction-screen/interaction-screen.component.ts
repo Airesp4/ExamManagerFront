@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { DataService } from '../../services/data.service';
+import { DataService, Prova } from '../../services/data.service';
+import { forkJoin } from 'rxjs';
 
 @Component({
   selector: 'app-interaction-screen',
@@ -14,7 +15,8 @@ export class InteractionScreenComponent {
   nomeProva: string = '';
   descricaoProva: string = '';
   enunciadoQuestao: string = '';
-  provaSelecionada: number | null = null;
+  idProvaSelecionada: number | null = null;
+  provaSelecionada: Prova | null = null;
   modalAberto: boolean = false;
   modalEstatisticasAberto: boolean = false;
   modalQuestoesAberto: boolean = false;
@@ -25,6 +27,7 @@ export class InteractionScreenComponent {
   };
 
   listaProvas: { id: number; nome: string }[] = [];
+  alternativas: string[] = ['', '', '', '', ''];
 
   @Output() sectionChange = new EventEmitter<string>();
 
@@ -104,23 +107,61 @@ export class InteractionScreenComponent {
     });
   }
 
-  adicionarQuestao(): void {
-    if (!this.provaSelecionada || !this.enunciadoQuestao.trim()) {
-      alert('Por favor, selecione uma prova e insira o enunciado da questão.');
+  salvarQuestao(): void {
+    if (!this.idProvaSelecionada) {
+      alert('Selecione uma prova.');
       return;
     }
-
-    const prova_Id = this.provaSelecionada;
-    const enunciado = this.enunciadoQuestao;
-
-    this.dataService.cadastrarQuestao(enunciado, prova_Id).subscribe({
-      next: (questao) => {
-        console.log('Questão cadastrada com sucesso:', questao);
-        this.fecharModalQuestoes();
+  
+    if (!this.enunciadoQuestao.trim()) {
+      alert('O enunciado da questão não pode estar vazio.');
+      return;
+    }
+  
+    const alternativasValidas = this.alternativas.filter((alt) => alt.trim().length > 0);
+    if (alternativasValidas.length < 5) {
+      alert('Por favor, preencha todas as 5 alternativas.');
+      return;
+    }
+  
+    this.dataService.buscarProvaPorId(this.idProvaSelecionada).subscribe({
+      next: (prova) => {
+        if (!prova) {
+          alert('Prova não encontrada.');
+          return;
+        }
+  
+        this.dataService.cadastrarQuestao(this.enunciadoQuestao, prova.id).subscribe({
+          next: (novaQuestao) => {
+            console.log('Questão cadastrada com sucesso:', novaQuestao);
+  
+            forkJoin(
+              alternativasValidas.map((alternativa) =>
+                this.dataService.cadastrarResposta(novaQuestao.id, alternativa)
+              )
+            ).subscribe({
+              next: (respostas) => {
+                console.log('Alternativas cadastradas com sucesso:', respostas);
+                alert('Questão e alternativas cadastradas com sucesso!');
+                this.fecharModalQuestoes();
+                this.enunciadoQuestao = '';
+                this.alternativas = ['', '', '', '', ''];
+              },
+              error: (err) => {
+                console.error('Erro ao cadastrar alternativas:', err);
+                alert('Erro ao cadastrar as alternativas.');
+              },
+            });
+          },
+          error: (err) => {
+            console.error('Erro ao cadastrar a questão:', err);
+            alert('Erro ao cadastrar a questão.');
+          },
+        });
       },
       error: (err) => {
-        console.error('Erro ao cadastrar questão:', err);
-        alert('Ocorreu um erro ao cadastrar a questão. Por favor, tente novamente.');
+        console.error('Erro ao buscar prova:', err);
+        alert('Erro ao buscar a prova selecionada.');
       },
     });
   }

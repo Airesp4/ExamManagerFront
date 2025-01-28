@@ -41,6 +41,12 @@ export class DataService {
     });
   }
 
+  buscarProvaPorId(id: number): Observable<Prova> {
+    const headers = this.getAuthHeaders();
+
+    return this.http.get<Prova>(`${this.apiUrl}/${id}`, { headers });
+  }
+
   getProvas(): Observable<Prova[]> {
     const headers = this.getAuthHeaders();
   
@@ -166,13 +172,13 @@ export class DataService {
     return this.http.post<Resposta>(url, {}, { headers });
   }
 
-  atualizarResposta(id: number, descricao: string): Observable<Questao> {
+  atualizarResposta(id: number, descricao: string): Observable<Resposta> {
     const headers = this.getAuthHeaders();
 
-    const url = `http://localhost:8080/questoes/${id}?enunciado=${encodeURIComponent(
+    const url = `http://localhost:8080/respostas/${id}?descricao=${encodeURIComponent(
       descricao
     )}`;
 
-    return this.http.put<Questao>(url, {}, { headers });
+    return this.http.put<Resposta>(url, {}, { headers });
   }
 }

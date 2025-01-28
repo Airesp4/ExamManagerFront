@@ -18,8 +18,9 @@
     <button (click)="abrirModalEstatisticas()">Estatísticas</button>
   </div>
 
-  <div class="modal" *ngIf="modalAberto">
-    <div class="modal-content">
+  <!-- Modal Cadastro de Provas -->
+  <div class="modal" *ngIf="modalAberto" (click)="fecharModal()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
       <h3>Cadastro de Prova</h3>
       <label for="nomeProva">Nome da Prova:</label>
       <input
@@ -33,7 +34,7 @@
         id="nomeProva"
         type="text"
         [(ngModel)]="descricaoProva"
-        placeholder="Insira uma breve descicao"
+        placeholder="Insira uma breve descrição"
       />
       <div class="modal-actions">
         <button class="btn-save" (click)="cadastrarProva()">Salvar</button>
@@ -42,8 +43,9 @@
     </div>
   </div>
 
-  <div class="modal" *ngIf="modalEstatisticasAberto">
-    <div class="modal-content">
+  <!-- Modal Estatísticas -->
+  <div class="modal" *ngIf="modalEstatisticasAberto" (click)="fecharModalEstatisticas()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
       <h3>Estatísticas do Sistema</h3>
       <p>Estatísticas gerais do gerenciador fornecidas:</p>
       <ul class="statistics-list">
@@ -57,14 +59,15 @@
     </div>
   </div>
 
-  <div class="modal" *ngIf="modalQuestoesAberto">
-    <div class="modal-content">
+  <!-- Modal Cadastro de Questões -->
+  <div class="modal" *ngIf="modalQuestoesAberto" (click)="fecharModalQuestoes()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
       <h3>Cadastro de Questões</h3>
 
       <label for="provaSelecionada">Selecione a Prova:</label>
       <select
-        id="provaSelecionada"
-        [(ngModel)]="provaSelecionada"
+        id="idProvaSelecionada"
+        [(ngModel)]="idProvaSelecionada"
         class="form-control"
       >
         <option *ngFor="let prova of listaProvas" [value]="prova.id">
@@ -81,11 +84,56 @@
         class="form-control"
       ></textarea>
 
+      <h4>Alternativas</h4>
+      <label for="alternativaA">Alternativa A:</label>
+      <input
+        id="alternativaA"
+        type="text"
+        [(ngModel)]="alternativas[0]"
+        placeholder="Insira a alternativa A"
+        class="form-control"
+      />
+
+      <label for="alternativaB">Alternativa B:</label>
+      <input
+        id="alternativaB"
+        type="text"
+        [(ngModel)]="alternativas[1]"
+        placeholder="Insira a alternativa B"
+        class="form-control"
+      />
+
+      <label for="alternativaC">Alternativa C:</label>
+      <input
+        id="alternativaC"
+        type="text"
+        [(ngModel)]="alternativas[2]"
+        placeholder="Insira a alternativa C"
+        class="form-control"
+      />
+
+      <label for="alternativaD">Alternativa D:</label>
+      <input
+        id="alternativaD"
+        type="text"
+        [(ngModel)]="alternativas[3]"
+        placeholder="Insira a alternativa D"
+        class="form-control"
+      />
+
+      <label for="alternativaE">Alternativa E:</label>
+      <input
+        id="alternativaE"
+        type="text"
+        [(ngModel)]="alternativas[4]"
+        placeholder="Insira a alternativa E"
+        class="form-control"
+      />
+
       <div class="modal-actions">
-        <button class="btn-save" (click)="adicionarQuestao()">Salvar Questão</button>
+        <button class="btn-save" (click)="salvarQuestao()">Salvar Questão</button>
         <button class="btn-cancel" (click)="fecharModalQuestoes()">Cancelar</button>
       </div>
     </div>
   </div>
-
 </div>
