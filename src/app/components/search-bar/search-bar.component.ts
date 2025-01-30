@@ -18,6 +18,6 @@ export class SearchBarComponent {
   constructor(private searchService: SearchService) {}
 
   onPesquisar(): void {
-    this.searchService.atualizarPesquisa(this.pesquisa); // Atualiza a pesquisa no serviço
+    this.searchService.atualizarPesquisa(this.pesquisa);
   }
 }

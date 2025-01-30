@@ -1,39 +1,36 @@
-/* Barra de pesquisa */
 .container__searchbar {
     display: flex;
     align-items: center;
-    gap: 10px; /* Espaço entre o campo e o botão */
-    max-width: calc(100% - 250px); /* Subtrai a largura da sidebar */
-    margin-left: 250px; /* Começa após a sidebar */
+    gap: 10px;
+    max-width: calc(100% - 250px);
+    margin-left: 250px;
     padding: 10px;
     background-color: #ADD8E6;
-    border: 1px solid #ddd; /* Borda leve */
-    border-radius: 8px; /* Bordas arredondadas */
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
-/* Campo de texto */
 .space-search {
-    flex: 1; /* Faz o campo ocupar o espaço disponível */
+    flex: 1;
     padding: 10px;
     font-size: 16px;
-    border: 1px solid transparent;  /* Borda normal */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Sombra mais forte e mais difusa */
+    border: 1px solid transparent;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 4px;
 }
 
-/* Botão de pesquisa */
 .button-search {
     padding: 10px 20px;
     font-size: 16px;
     font-weight: bold;
     background-color: #7EC8E3;
-    border: 1px solid transparent;  /* Borda normal */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3); /* Sombra mais forte e mais difusa */
+    border: 1px solid transparent;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
     border-radius: 4px;
     cursor: pointer;
 }
 
 .button-search:hover {
-    background-color: white; /* Fundo mais escuro no hover */
+    background-color: white;
 }

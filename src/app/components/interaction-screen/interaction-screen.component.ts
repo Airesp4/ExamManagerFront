@@ -9,7 +9,7 @@ import { forkJoin } from 'rxjs';
   standalone: true,
   imports: [FormsModule, CommonModule],
   templateUrl: './interaction-screen.component.html',
-  styleUrl: './interaction-screen.component.css',
+  styleUrls: ['./interaction-screen.component.css'],
 })
 export class InteractionScreenComponent {
   nomeProva: string = '';
@@ -69,13 +69,11 @@ export class InteractionScreenComponent {
     if (this.nomeProva.trim() && this.descricaoProva.trim()) {
       this.dataService.cadastrarProva(this.nomeProva, this.descricaoProva).subscribe({
         next: (prova) => {
-          console.log('Prova cadastrada com sucesso:', prova);
           this.nomeProva = '';
           this.descricaoProva = '';
           this.fecharModal();
         },
-        error: (err) => {
-          console.error('Erro ao cadastrar prova:', err);
+        error: () => {
           alert('Ocorreu um erro ao cadastrar a prova. Por favor, tente novamente.');
         },
       });
@@ -95,7 +93,7 @@ export class InteractionScreenComponent {
       next: (quantidade) => {
         this.estatisticas.totalUsuarios = quantidade;
       }
-    })
+    });
   }
 
   carregarProvas(): void {
@@ -133,34 +131,27 @@ export class InteractionScreenComponent {
   
         this.dataService.cadastrarQuestao(this.enunciadoQuestao, prova.id).subscribe({
           next: (novaQuestao) => {
-            console.log('Questão cadastrada com sucesso:', novaQuestao);
-  
             forkJoin(
               alternativasValidas.map((alternativa) =>
                 this.dataService.cadastrarResposta(novaQuestao.id, alternativa)
               )
             ).subscribe({
-              next: (respostas) => {
-                console.log('Alternativas cadastradas com sucesso:', respostas);
-                alert('Questão e alternativas cadastradas com sucesso!');
+              next: () => {
                 this.fecharModalQuestoes();
                 this.enunciadoQuestao = '';
                 this.alternativas = ['', '', '', '', ''];
               },
-              error: (err) => {
-                console.error('Erro ao cadastrar alternativas:', err);
+              error: () => {
                 alert('Erro ao cadastrar as alternativas.');
               },
             });
           },
-          error: (err) => {
-            console.error('Erro ao cadastrar a questão:', err);
+          error: () => {
             alert('Erro ao cadastrar a questão.');
           },
         });
       },
-      error: (err) => {
-        console.error('Erro ao buscar prova:', err);
+      error: () => {
         alert('Erro ao buscar a prova selecionada.');
       },
     });

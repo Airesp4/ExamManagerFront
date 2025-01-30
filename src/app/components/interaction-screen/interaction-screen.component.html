@@ -18,7 +18,6 @@
     <button (click)="abrirModalEstatisticas()">Estatísticas</button>
   </div>
 
-  <!-- Modal Cadastro de Provas -->
   <div class="modal" *ngIf="modalAberto" (click)="fecharModal()">
     <div class="modal-content" (click)="$event.stopPropagation()">
       <h3>Cadastro de Prova</h3>
@@ -43,7 +42,6 @@
     </div>
   </div>
 
-  <!-- Modal Estatísticas -->
   <div class="modal" *ngIf="modalEstatisticasAberto" (click)="fecharModalEstatisticas()">
     <div class="modal-content" (click)="$event.stopPropagation()">
       <h3>Estatísticas do Sistema</h3>
@@ -59,7 +57,6 @@
     </div>
   </div>
 
-  <!-- Modal Cadastro de Questões -->
   <div class="modal" *ngIf="modalQuestoesAberto" (click)="fecharModalQuestoes()">
     <div class="modal-content" (click)="$event.stopPropagation()">
       <h3>Cadastro de Questões</h3>
