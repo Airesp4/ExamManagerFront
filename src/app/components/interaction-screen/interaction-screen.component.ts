@@ -74,7 +74,7 @@ export class InteractionScreenComponent {
           this.fecharModal();
         },
         error: () => {
-          alert('Ocorreu um erro ao cadastrar a prova. Por favor, tente novamente.');
+          alert('Ocorreu um erro ao cadastrar a prova. Nome de Prova já cadastrado.');
         },
       });
     } else {

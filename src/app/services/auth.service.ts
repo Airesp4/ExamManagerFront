@@ -12,7 +12,6 @@ export class AuthService {
   setToken(token: string): void {
     try {
       localStorage.setItem(this.TOKEN_KEY, token);
-      console.log('Token armazenado com sucesso!');
     } catch (error) {
       console.error('Erro ao armazenar o token:', error);
     }
@@ -30,7 +29,6 @@ export class AuthService {
   clearToken(): void {
     try {
       localStorage.removeItem(this.TOKEN_KEY);
-      console.log('Token removido com sucesso!');
     } catch (error) {
       console.error('Erro ao remover o token:', error);
     }

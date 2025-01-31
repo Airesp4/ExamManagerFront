@@ -74,15 +74,14 @@ export class InfoScreenComponent implements OnInit {
       const id = this.provaSelecionada.id;
       this.dataService.atualizarProva(id, this.provaSelecionada).subscribe({
         next: (updatedProva) => {
-          console.log('Prova atualizada com sucesso:', updatedProva);
           this.fechar('modal');
         },
         error: (err) => {
-          console.error('Erro ao atualizar a prova:', err);
+          alert('Erro ao atualizar a prova.');
         }
       });
     } else {
-      console.error('Nenhuma prova selecionada para atualizar');
+      alert('Nenhuma prova selecionada para atualizar.');
     }
   }
 
@@ -92,16 +91,15 @@ export class InfoScreenComponent implements OnInit {
 
       this.dataService.excluirProva(id).subscribe({
         next: () => {
-          console.log('Prova excluída com sucesso:');
           this.fechar('modal');
           this.carregarProvas();
         },
         error: (err) => {
-          console.error('Erro ao excluir a prova:', err);
+          alert('Erro ao excluir a prova.');
         }
       });
     } else {
-      console.error('Nenhuma prova selecionada para exclusão.');
+      alert('Nenhuma prova selecionada para exclusão.');
     }
   }
 
@@ -155,13 +153,12 @@ export class InfoScreenComponent implements OnInit {
   salvarQuestao(): void {
 
     if (!this.provaSelecionada?.id || !this.enunciado) {
-      console.error('Enunciado da questão ou prova não selecionada.');
+      alert('Enunciado da questão ou prova não selecionada.');
       return;
     }
   
     this.dataService.cadastrarQuestao(this.enunciado, this.provaSelecionada.id).subscribe({
       next: (novaQuestao) => {
-        console.log('Questão cadastrada com sucesso:', novaQuestao);
   
         const alternativasValidas = this.alternativas.filter((alternativa) => alternativa.trim().length > 0);
   
@@ -171,7 +168,6 @@ export class InfoScreenComponent implements OnInit {
           )
         ).subscribe({
           next: (respostas) => {
-            console.log('Todas as respostas cadastradas com sucesso:', respostas);
   
             novaQuestao.respostas = respostas;
   
@@ -213,7 +209,7 @@ export class InfoScreenComponent implements OnInit {
         break;
 
       default:
-        console.warn('Tipo de elemento não reconhecido:', elemento);
+        alert('Tipo de elemento não reconhecido');
         break;
     }
   }
@@ -238,7 +234,6 @@ export class InfoScreenComponent implements OnInit {
         
         this.dataService.atualizarResposta(resposta.id, resposta.descricao).subscribe({
           next: (respostaAtualizada) => {
-            console.log("Resposta com ID " + respostaAtualizada.id + " atualizada com sucesso. Nova descrição: " + respostaAtualizada.descricao);
           },
           error: (err) => {
             console.error("Erro ao atualizar a resposta", err);

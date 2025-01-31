@@ -39,17 +39,16 @@ export class LoginComponent {
             this.authService.setToken(token);
             this.router.navigate(['/home']);
           } else {
-            console.error('Token não encontrado na resposta.');
             this.loginFailed = true;
           }
         },
         error: (err) => {
-          console.error('Erro ao logar usuário:', err);
+          alert('Erro ao logar usuário.');
           this.loginFailed = true;
         }
       });
     } else {
-      console.error('Preencha todos os campos para o login');
+      alert('Preencha todos os campos para o login.');
       this.loginFailed = true;
     }
   }
@@ -66,15 +65,15 @@ export class LoginComponent {
     if (this.newUsername && this.newPassword && this.newDateBirth) {
       this.userService.cadastrarUsuario(this.newUsername, this.newPassword, this.newDateBirth).subscribe({
         next: () => {
-          console.log('Usuário cadastrado com sucesso!');
+          alert('Usuário cadastrado com sucesso!');
           this.fecharModalCadastro();
         },
         error: (err) => {
-          console.error('Erro ao cadastrar usuário:', err);
+          alert('Erro ao cadastrar usuário.');
         }
       });
     } else {
-      console.log('Preencha todos os campos para o cadastro');
+      alert('Preencha todos os campos para o cadastro.');
     }
   }
 }
