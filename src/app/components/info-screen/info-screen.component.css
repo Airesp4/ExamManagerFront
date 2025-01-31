@@ -48,6 +48,8 @@
   text-align: left;
   position: relative;
   font-size: 16px;
+  max-height: 100vh;
+  overflow-y: auto;
 }
 
 .modal-content > h3{
@@ -174,6 +176,19 @@ button {
 
 .btn-cancelar:hover {
   background-color: #5a6268;
+}
+
+.btn-baixar {
+  background-color: #17a2b8;
+  color: white;
+}
+
+.btn-baixar:hover {
+  background-color: #138496;
+}
+
+.btn-baixar:focus {
+  outline: none;
 }
 
 .questoes-container {

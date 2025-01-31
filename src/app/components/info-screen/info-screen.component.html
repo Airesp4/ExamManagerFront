@@ -102,6 +102,7 @@
         <button class="btn-editar" (click)="editando ? desativarEdicao() : ativarEdicao()">
           {{ editando ? 'Cancelar' : 'Editar' }}
         </button>
+        <button class="btn-baixar" (click)="baixarArquivo()">Baixar Arquivo</button>
         <button class="btn-excluir" (click)="confirmarExclusao = true">Excluir</button>
         <button class="btn-fechar" (click)="fechar('modal')">Fechar</button>
       </div>

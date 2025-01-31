@@ -6,6 +6,7 @@ import { HttpClient } from '@angular/common/http';
 import { DataService, Prova, Questao } from '../../services/data.service';
 import { SearchService } from '../../services/search.service';
 import { forkJoin } from 'rxjs';
+import { PdfService } from '../../services/pdf.service';
 
 @Component({
   selector: 'app-info-screen',
@@ -31,7 +32,8 @@ export class InfoScreenComponent implements OnInit {
 
   constructor(
     private dataService: DataService,
-    private searchService: SearchService
+    private searchService: SearchService,
+    private pdfService: PdfService
   ) {}
 
   ngOnInit(): void {
@@ -246,5 +248,11 @@ export class InfoScreenComponent implements OnInit {
   salvarMudancas(): void {
     this.atualizarResposta();
     this.atualizarQuestao();
+  }
+
+  baixarArquivo() {
+    if (this.provaSelecionada) {
+      this.pdfService.baixarArquivo(this.provaSelecionada);
+    }
   }
 }
