@@ -2,6 +2,16 @@
 
 Este é o frontend do **ExamManager**, um sistema para gerenciamento de provas, desenvolvido em **Angular** e integrado a um backend em **Spring Boot**.  
 
+## 🚀 Tecnologias Utilizadas  
+
+- **Angular 18.2.6**  
+- **TypeScript**  
+- **Angular Material**  
+- **Bootstrap**  
+- **HTTP Client** (para comunicação com a API)  
+- **JWT Authentication**  
+
+
 ## 🎯 Funcionalidades  
 
 - **Cadastro e Autenticação de Usuários:**  
@@ -24,14 +34,6 @@ Este é o frontend do **ExamManager**, um sistema para gerenciamento de provas, 
 - **Geração do Arquivo PDF das provas:**  
   - Disponibilização de arquivo PDF das provas cadastradas para download.
 
-## 🚀 Tecnologias Utilizadas  
-
-- **Angular 18.2.6**  
-- **TypeScript**  
-- **Angular Material**  
-- **Bootstrap**  
-- **HTTP Client** (para comunicação com a API)  
-- **JWT Authentication**  
 
 ## 📦 Instalação  
 
