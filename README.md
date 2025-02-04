@@ -1,4 +1,4 @@
-# 🏀 ExamManager - Frontend  
+# ExamManager - Frontend  
 
 Este é o frontend do **ExamManager**, um sistema para gerenciamento de provas, desenvolvido em **Angular** e integrado a um backend em **Spring Boot**.  
 
@@ -82,4 +82,4 @@ python server.py
 
 ## 📝 Conclusão  
 
-O **ExamManager** é uma solução completa para gerenciamento de provas, oferecendo uma interface intuitiva e responsiva para professores e administradores. Com autenticação segura via JWT, integração com um backend robusto e suporte à geração de PDFs, a plataforma visa otimizar o processo de criação, aplicação e avaliação de exames.
+O **ExamManager** é uma solução completa para gerenciamento de provas, oferecendo uma interface intuitiva e responsiva para professores e administradores. Com autenticação segura via JWT, integração com um backend robusto e suporte à geração de PDFs, a plataforma visa otimizar o processo de criação e aplicação de exames.
