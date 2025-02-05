@@ -35,8 +35,8 @@ class ProvaPDF(FPDF):
         self.set_font("Arial", "I", 10)
         self.cell(0, 10, f"Página {self.page_no()}", align="C")
 
-    def add_page(self):
-        super().add_page()
+    def add_page(self, orientation=""):
+        super().add_page(orientation)
         if not self.primeira_pagina:
             self.set_y(15)
         self.primeira_pagina = False
