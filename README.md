@@ -40,8 +40,8 @@ Este é o frontend do **ExamManager**, um sistema para gerenciamento de provas, 
 ### 1️⃣ Clone o repositório  
 
 ```sh
-git clone https://github.com/Airesp4/ExameManagerFront.git
-cd ExameManagerFront
+git clone https://github.com/Airesp4/ExamManagerFront.git
+cd ExamManagerFront
 ```
 
 ### 2️⃣ Instale as dependências  
