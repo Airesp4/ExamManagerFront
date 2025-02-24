@@ -29,7 +29,7 @@ export interface Resposta {
   providedIn: 'root',
 })
 export class DataService {
-  private apiUrl: string = `http://localhost:8080/provas`;
+  private apiUrl: string = `http://localhost:8080`;
 
   constructor(private http: HttpClient) {}
 
@@ -44,13 +44,13 @@ export class DataService {
   buscarProvaPorId(id: number): Observable<Prova> {
     const headers = this.getAuthHeaders();
 
-    return this.http.get<Prova>(`${this.apiUrl}/${id}`, { headers });
+    return this.http.get<Prova>(`${this.apiUrl}/prova/${id}`, { headers });
   }
 
   getProvas(): Observable<Prova[]> {
     const headers = this.getAuthHeaders();
   
-    return this.http.get<Prova[]>(this.apiUrl, { headers }).pipe(
+    return this.http.get<Prova[]>(`${this.apiUrl}/prova`, { headers }).pipe(
       switchMap((provas) => {
         return this.getQuestoes().pipe(
           switchMap((questoes) => {
@@ -82,26 +82,32 @@ export class DataService {
 
   atualizarProva(id: number, prova: Prova): Observable<Prova> {
     const headers = this.getAuthHeaders();
-    const url = `${this.apiUrl}/${id}?nome=${encodeURIComponent(
-      prova.nome
-    )}&descricao=${encodeURIComponent(prova.descricao || '')}`;
+    const data = {
+      nome: prova.nome,
+      descricao: prova.descricao,
+    };
 
-    return this.http.put<Prova>(url, {}, { headers });
+    const url = `${this.apiUrl}/prova/${id}`;
+
+    return this.http.put<Prova>(url, data, { headers });
   }
 
   cadastrarProva(nome: string, descricao: string): Observable<Prova> {
     const headers = this.getAuthHeaders();
-    const url = `${this.apiUrl}?nome=${encodeURIComponent(
-      nome
-    )}&descricao=${encodeURIComponent(descricao)}`;
+    const data = {
+      nome: nome,
+      descricao: descricao,
+      dataCriacao: new Date().toISOString().split('T')[0]
+    };
+    const url = `${this.apiUrl}/prova`;
 
-    return this.http.post<Prova>(url, {}, { headers });
+    return this.http.post<Prova>(url, data, { headers });
   }
 
   excluirProva(id: number): Observable<void> {
     const headers = this.getAuthHeaders();
 
-    return this.http.delete<void>(`${this.apiUrl}/${id}`, {
+    return this.http.delete<void>(`${this.apiUrl}/prova/${id}`, {
       headers,
     });
   }
@@ -109,21 +115,23 @@ export class DataService {
   getQuestoes(): Observable<Questao[]> {
     const headers = this.getAuthHeaders();
 
-    return this.http.get<Questao[]>(`http://localhost:8080/questoes`, { headers });
+    return this.http.get<Questao[]>(`${this.apiUrl}/questoes`, { headers });
   }
 
   cadastrarQuestao(enunciado: string, prova_id: number): Observable<Questao> {
     const headers = this.getAuthHeaders();
+    const data = {
+      texto: enunciado
+    }
+    const url = `${this.apiUrl}/questoes/${prova_id}`;
 
-    const url = `http://localhost:8080/questoes/${prova_id}?enunciado=${encodeURIComponent(enunciado)}`;
-
-    return this.http.post<Questao>(url, {}, { headers });
+    return this.http.post<Questao>(url, data, { headers });
   }
 
   getNumQuestoes(prova_id: number): Observable<number> {
     const headers = this.getAuthHeaders();
 
-    return this.http.get<Questao[]>(`http://localhost:8080/questoes`, { headers }).pipe(
+    return this.http.get<Questao[]>(`${this.apiUrl}/questoes`, { headers }).pipe(
       map(questoes => {
         const questoesFiltradas = questoes.filter(questao => questao.prova.id === prova_id);
 
@@ -134,18 +142,18 @@ export class DataService {
 
   atualizarQuestao(id: number, enunciado: string): Observable<Questao> {
     const headers = this.getAuthHeaders();
+    const data = {
+      texto: enunciado
+    }
+    const url = `${this.apiUrl}/questoes/${id}`;
 
-    const url = `http://localhost:8080/questoes/${id}?enunciado=${encodeURIComponent(
-      enunciado
-    )}`;
-
-    return this.http.put<Questao>(url, {}, { headers });
+    return this.http.put<Questao>(url, data, { headers });
   }
 
   excluirQuestao(id: number): Observable<void> {
     const headers = this.getAuthHeaders();
 
-    return this.http.delete<void>(`http://localhost:8080/questoes/${id}`, {
+    return this.http.delete<void>(`${this.apiUrl}/questoes/${id}`, {
       headers,
     });
   }
@@ -153,7 +161,7 @@ export class DataService {
   buscarUsuarios(): Observable<number> {
     const headers = this.getAuthHeaders();
   
-    return this.http.get<User[]>(`http://localhost:8080/user`, { headers }).pipe(
+    return this.http.get<User[]>(`${this.apiUrl}/user`, { headers }).pipe(
       map((usuarios) => usuarios.length)
     );
   }
@@ -161,24 +169,28 @@ export class DataService {
   getRespostas(): Observable<Resposta[]> {
     const headers = this.getAuthHeaders();
 
-    return this.http.get<Resposta[]>(`http://localhost:8080/respostas`, { headers });
+    return this.http.get<Resposta[]>(`${this.apiUrl}/respostas`, { headers });
   }
 
   cadastrarResposta(questao_id: number, descricao: string): Observable<Resposta> {
     const headers = this.getAuthHeaders();
-  
-    const url = `http://localhost:8080/respostas/${questao_id}?descricao=${encodeURIComponent(descricao)}`;
+
+    const data = {
+      texto: descricao
+    }
+    const url = `${this.apiUrl}/respostas/${questao_id}`;
       
-    return this.http.post<Resposta>(url, {}, { headers });
+    return this.http.post<Resposta>(url, data, { headers });
   }
 
   atualizarResposta(id: number, descricao: string): Observable<Resposta> {
     const headers = this.getAuthHeaders();
 
-    const url = `http://localhost:8080/respostas/${id}?descricao=${encodeURIComponent(
-      descricao
-    )}`;
+    const data = {
+      texto: descricao
+    }
+    const url = `${this.apiUrl}/respostas/${id}`;
 
-    return this.http.put<Resposta>(url, {}, { headers });
+    return this.http.put<Resposta>(url, data, { headers });
   }
 }

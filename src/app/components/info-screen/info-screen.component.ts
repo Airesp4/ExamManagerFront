@@ -52,6 +52,11 @@ export class InfoScreenComponent implements OnInit {
   
         this.provas.forEach((prova) => {
           prova.numQuestao = prova.questoes ? prova.questoes.length : 0;
+
+          if (prova.dataCriacao) {
+            prova.dataCriacao = new Date(prova.dataCriacao)
+              .toLocaleDateString('pt-BR');
+          }
         });
       },
       error: (erro) => {
@@ -234,13 +239,7 @@ export class InfoScreenComponent implements OnInit {
   
       respostas.forEach(resposta => {
         
-        this.dataService.atualizarResposta(resposta.id, resposta.descricao).subscribe({
-          next: (respostaAtualizada) => {
-          },
-          error: (err) => {
-            console.error("Erro ao atualizar a resposta", err);
-          }
-        });
+        this.dataService.atualizarResposta(resposta.id, resposta.descricao);
       });
     }
   }
