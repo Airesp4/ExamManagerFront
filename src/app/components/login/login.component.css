@@ -160,3 +160,72 @@ button:disabled {
 .login-container .form-group button:first-child {
   margin-bottom: 10px;
 }
+
+@media (max-width: 768px) {
+  .host {
+    padding: 10px;
+  }
+
+  .login-container {
+    margin: 20px auto;
+    padding: 15px 20px;
+    max-width: 90%;
+  }
+
+  h2 {
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+  }
+
+  input {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+
+  button {
+    padding: 8px;
+    font-size: 0.9rem;
+  }
+
+  .modal-content {
+    padding: 20px 25px;
+    max-width: 90%;
+  }
+
+  .modal-content h2 {
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+  }
+
+  .modal-content button {
+    margin-right: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-container {
+    padding: 10px 15px;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+  }
+
+  input {
+    padding: 6px;
+    font-size: 0.8rem;
+  }
+
+  button {
+    padding: 6px;
+    font-size: 0.8rem;
+  }
+
+  .modal-content {
+    padding: 15px 20px;
+  }
+
+  .modal-content h2 {
+    font-size: 1.3rem;
+  }
+}

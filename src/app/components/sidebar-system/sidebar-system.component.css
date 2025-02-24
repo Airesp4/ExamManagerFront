@@ -39,3 +39,44 @@
     margin-top: 20px;
 }
 
+@media (max-width: 768px) {
+    .container__sidebar {
+        width: 185px;
+        padding: 15px;
+    }
+
+    .container__sidebar li {
+        font-size: 16px;
+        padding-top: 12px;
+    }
+
+    .container__sidebar a {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .container__sidebar > hr {
+        margin-top: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container__sidebar {
+        width: 140px;
+        padding: 10px;
+    }
+
+    .container__sidebar li {
+        font-size: 14px;
+        padding-top: 10px;
+    }
+
+    .container__sidebar a {
+        padding: 6px;
+        font-size: 12px;
+    }
+
+    .container__sidebar > hr {
+        margin-top: 10px;
+    }
+}

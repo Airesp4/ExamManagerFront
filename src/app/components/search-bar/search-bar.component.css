@@ -34,3 +34,41 @@
 .button-search:hover {
     background-color: white;
 }
+
+@media (max-width: 768px) {
+    .container__searchbar {
+        max-width: calc(100% - 200px);
+        margin-left: 180px;
+        padding: 8px;
+        gap: 8px;
+    }
+
+    .space-search {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    .button-search {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container__searchbar {
+        max-width: calc(100% - 140px);
+        margin-left: 150px;
+        padding: 6px;
+        gap: 6px;
+    }
+
+    .space-search {
+        padding: 6px;
+        font-size: 12px;
+    }
+
+    .button-search {
+        padding: 6px 12px;
+        font-size: 12px;
+    }
+}
