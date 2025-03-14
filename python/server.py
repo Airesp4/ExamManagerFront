@@ -50,11 +50,11 @@ def gerar_arquivo():
     pdf.add_page()
     pdf.set_font("Arial", "", 12)
 
-    pdf.ln(15)
+    pdf.ln(10)
 
     pdf.set_font("Arial", "", 12)
     pdf.multi_cell(0, 8, prova['descricao'])
-    pdf.ln(10)
+    pdf.ln(5)
 
     for i, questao in enumerate(prova['questoes'], start=1):
         if pdf.get_y() > 250:
@@ -69,10 +69,10 @@ def gerar_arquivo():
         for j, resposta in enumerate(questao['respostas']):
             pdf.cell(0, 6, f"{chr(65+j)}) {resposta['descricao']}", ln=True)
 
-        pdf.ln(5)
+        pdf.ln(3)
 
     pdf.set_font("Arial", "I", 12)
-    pdf.ln(10)
+    pdf.ln(5)
     pdf.multi_cell(0, 8, "Boa sorte! Que você tenha sucesso na prova. Lembre-se de revisar suas respostas antes de entregá-la.")
     
     output = BytesIO()

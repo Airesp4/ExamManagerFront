@@ -7,6 +7,7 @@ import { DataService, Prova, Questao } from '../../services/data.service';
 import { SearchService } from '../../services/search.service';
 import { forkJoin } from 'rxjs';
 import { PdfService } from '../../services/pdf.service';
+import { NotificacaoService } from '../../services/notificacao.service';
 
 @Component({
   selector: 'app-info-screen',
@@ -33,7 +34,8 @@ export class InfoScreenComponent implements OnInit {
   constructor(
     private dataService: DataService,
     private searchService: SearchService,
-    private pdfService: PdfService
+    private pdfService: PdfService,
+    private notificaService: NotificacaoService
   ) {}
 
   ngOnInit(): void {
@@ -60,7 +62,7 @@ export class InfoScreenComponent implements OnInit {
         });
       },
       error: (erro) => {
-        console.error('Erro ao buscar provas:', erro);
+        this.notificaService.erro('Erro ao buscar provas:', erro);
       }
     });
   }
@@ -84,11 +86,11 @@ export class InfoScreenComponent implements OnInit {
           this.fechar('modal');
         },
         error: (err) => {
-          alert('Erro ao atualizar a prova.');
+          this.notificaService.erro('Erro ao atualizar a prova.');
         }
       });
     } else {
-      alert('Nenhuma prova selecionada para atualizar.');
+      this.notificaService.aviso('Nenhuma prova selecionada para atualizar.');
     }
   }
 
@@ -98,15 +100,16 @@ export class InfoScreenComponent implements OnInit {
 
       this.dataService.excluirProva(id).subscribe({
         next: () => {
+          this.notificaService.sucesso('Prova exluída com sucesso!');
           this.fechar('modal');
           this.carregarProvas();
         },
         error: (err) => {
-          alert('Erro ao excluir a prova.');
+          this.notificaService.erro('Erro ao excluir a prova.');
         }
       });
     } else {
-      alert('Nenhuma prova selecionada para exclusão.');
+      this.notificaService.erro('Nenhuma prova selecionada para exclusão.')
     }
   }
 
@@ -146,7 +149,7 @@ export class InfoScreenComponent implements OnInit {
           );
           this.provaSelecionada!.numQuestao = this.provaSelecionada.questoes.length || 0;
         }
-        
+
         this.fechar('menuQuestao');
         this.carregarProvas();
       });
@@ -160,7 +163,7 @@ export class InfoScreenComponent implements OnInit {
   salvarQuestao(): void {
 
     if (!this.provaSelecionada?.id || !this.enunciado) {
-      alert('Enunciado da questão ou prova não selecionada.');
+      this.notificaService.aviso('Enunciado da questão ou prova não selecionada.');
       return;
     }
   
@@ -189,12 +192,12 @@ export class InfoScreenComponent implements OnInit {
             this.alternativas = ['', '', '', '', ''];
           },
           error: (err) => {
-            console.error('Erro ao cadastrar respostas:', err);
+            this.notificaService.erro('Erro ao cadastrar respostas:', err);
           }
         });
       },
       error: (err) => {
-        console.error('Erro ao adicionar a questão:', err);
+        this.notificaService.erro('Erro ao adicionar a questão:', err);
       }
     });
   }
@@ -216,7 +219,7 @@ export class InfoScreenComponent implements OnInit {
         break;
 
       default:
-        alert('Tipo de elemento não reconhecido');
+        this.notificaService.aviso('Tipo de elemento não reconhecido');
         break;
     }
   }
@@ -238,8 +241,11 @@ export class InfoScreenComponent implements OnInit {
       const respostas = this.questaoSelecionada.respostas;
   
       respostas.forEach(resposta => {
-        
-        this.dataService.atualizarResposta(resposta.id, resposta.descricao);
+        this.dataService.atualizarResposta(resposta.id, resposta.descricao).subscribe({
+          next: (response) => {
+            this.notificaService.sucesso('Resposta atualizada!');
+          }
+        });
       });
     }
   }

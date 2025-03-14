@@ -4,6 +4,7 @@ import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../../services/user.service';
 import { AuthService } from '../../services/auth.service';
+import { NotificacaoService } from '../../services/notificacao.service';
 
 @Component({
   selector: 'app-login',
@@ -25,7 +26,8 @@ export class LoginComponent {
   constructor(
     private userService: UserService,
     private authService: AuthService,
-    private router: Router
+    private router: Router,
+    private notificaService: NotificacaoService
   ) {}
 
   onSubmit() {
@@ -43,12 +45,12 @@ export class LoginComponent {
           }
         },
         error: (err) => {
-          alert('Erro ao logar usuário.');
+          this.notificaService.erro('Erro ao logar usuário.');
           this.loginFailed = true;
         }
       });
     } else {
-      alert('Preencha todos os campos para o login.');
+      this.notificaService.erro('Preencha todos os campos para o login.');
       this.loginFailed = true;
     }
   }
@@ -65,15 +67,15 @@ export class LoginComponent {
     if (this.newUsername && this.newPassword && this.newDateBirth) {
       this.userService.cadastrarUsuario(this.newUsername, this.newPassword, this.newDateBirth).subscribe({
         next: () => {
-          alert('Usuário cadastrado com sucesso!');
+          this.notificaService.sucesso('Usuário cadastrado com sucesso!');
           this.fecharModalCadastro();
         },
         error: (err) => {
-          alert('Erro ao cadastrar usuário.');
+          this.notificaService.erro('Erro ao cadastrar usuário.');
         }
       });
     } else {
-      alert('Preencha todos os campos para o cadastro.');
+      this.notificaService.erro('Preencha todos os campos para o cadastro.');
     }
   }
 }

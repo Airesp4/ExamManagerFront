@@ -3,6 +3,7 @@ import { Component, EventEmitter, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { DataService, Prova } from '../../services/data.service';
 import { forkJoin } from 'rxjs';
+import { NotificacaoService } from '../../services/notificacao.service';
 
 @Component({
   selector: 'app-interaction-screen',
@@ -31,7 +32,9 @@ export class InteractionScreenComponent {
 
   @Output() sectionChange = new EventEmitter<string>();
 
-  constructor(private dataService: DataService) {}
+  constructor(private dataService: DataService,
+    private notificaService: NotificacaoService
+  ) {}
 
   abrirModal(): void {
     this.modalAberto = true;
@@ -69,16 +72,17 @@ export class InteractionScreenComponent {
     if (this.nomeProva.trim() && this.descricaoProva.trim()) {
       this.dataService.cadastrarProva(this.nomeProva, this.descricaoProva).subscribe({
         next: (prova) => {
+          this.notificaService.sucesso('Prova cadastrada!')
           this.nomeProva = '';
           this.descricaoProva = '';
           this.fecharModal();
         },
         error: () => {
-          alert('Ocorreu um erro ao cadastrar a prova. Nome de Prova já cadastrado.');
+          this.notificaService.erro('Ocorreu um erro ao cadastrar a prova. Nome de Prova já cadastrado.');
         },
       });
     } else {
-      alert('Por favor, insira o nome e a descrição da prova.');
+      this.notificaService.aviso('Por favor, insira o nome e a descrição da prova.');
     }
   }
 
@@ -107,25 +111,25 @@ export class InteractionScreenComponent {
 
   salvarQuestao(): void {
     if (!this.idProvaSelecionada) {
-      alert('Selecione uma prova.');
+      this.notificaService.aviso('Selecione uma prova.');
       return;
     }
   
     if (!this.enunciadoQuestao.trim()) {
-      alert('O enunciado da questão não pode estar vazio.');
+      this.notificaService.aviso('O enunciado da questão não pode estar vazio.');
       return;
     }
   
     const alternativasValidas = this.alternativas.filter((alt) => alt.trim().length > 0);
     if (alternativasValidas.length < 5) {
-      alert('Por favor, preencha todas as 5 alternativas.');
+      this.notificaService.aviso('Por favor, preencha todas as 5 alternativas.');
       return;
     }
   
     this.dataService.buscarProvaPorId(this.idProvaSelecionada).subscribe({
       next: (prova) => {
         if (!prova) {
-          alert('Prova não encontrada.');
+          this.notificaService.erro('Prova não encontrada.');
           return;
         }
   
@@ -137,22 +141,23 @@ export class InteractionScreenComponent {
               )
             ).subscribe({
               next: () => {
+                this.notificaService.sucesso('Questão cadastrada com sucesso!');
                 this.fecharModalQuestoes();
                 this.enunciadoQuestao = '';
                 this.alternativas = ['', '', '', '', ''];
               },
               error: () => {
-                alert('Erro ao cadastrar as alternativas.');
+                this.notificaService.erro('Erro ao cadastrar as alternativas.');
               },
             });
           },
           error: () => {
-            alert('Erro ao cadastrar a questão.');
+            this.notificaService.erro('Erro ao cadastrar a questão.');
           },
         });
       },
       error: () => {
-        alert('Erro ao buscar a prova selecionada.');
+        this.notificaService.erro('Erro ao buscar a prova selecionada.');
       },
     });
   }
