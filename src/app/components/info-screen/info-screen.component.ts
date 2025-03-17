@@ -55,9 +55,9 @@ export class InfoScreenComponent implements OnInit {
         this.provas.forEach((prova) => {
           prova.numQuestao = prova.questoes ? prova.questoes.length : 0;
 
-          if (prova.dataCriacao) {
-            prova.dataCriacao = new Date(prova.dataCriacao)
-              .toLocaleDateString('pt-BR');
+          if(prova.dataCriacao){
+            const [ano, mes, dia] = prova.dataCriacao.split('-');
+            prova.dataCriacao = `${dia}/${mes}/${ano}`;
           }
         });
       },
